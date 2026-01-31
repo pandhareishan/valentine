@@ -20,29 +20,30 @@ const placeNoButtonNearPrompt = () => {
   const areaRect = buttonsArea.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
   const x = areaRect.left + areaRect.width / 2 - btnRect.width / 2;
-  const y = areaRect.top + areaRect.height / 2 - btnRect.height / 2;
+  const y = areaRect.top + areaRect.height / 2 + 18;
   placeNoButton(x, y);
 };
 
-const moveNoButtonFarFrom = (clientX, clientY) => {
+const moveNoButtonNearCursor = (clientX, clientY) => {
   const btnRect = noBtn.getBoundingClientRect();
   const padding = 12;
   const maxX = window.innerWidth - btnRect.width - padding;
   const maxY = window.innerHeight - btnRect.height - padding;
+  const radius = 95;
 
-  for (let i = 0; i < 6; i += 1) {
-    const x = Math.random() * (maxX - padding) + padding;
-    const y = Math.random() * (maxY - padding) + padding;
-    const centerX = x + btnRect.width / 2;
-    const centerY = y + btnRect.height / 2;
-    const distance = Math.hypot(centerX - clientX, centerY - clientY);
-    if (distance > 200) {
+  for (let i = 0; i < 10; i += 1) {
+    const angle = Math.random() * Math.PI * 2;
+    const x = clientX + Math.cos(angle) * radius - btnRect.width / 2;
+    const y = clientY + Math.sin(angle) * radius - btnRect.height / 2;
+    if (x >= padding && x <= maxX && y >= padding && y <= maxY) {
       placeNoButton(x, y);
       return;
     }
   }
 
-  placeNoButton(maxX / 2, maxY / 2);
+  const clampedX = clamp(clientX - btnRect.width / 2, padding, maxX);
+  const clampedY = clamp(clientY - btnRect.height / 2, padding, maxY);
+  placeNoButton(clampedX, clampedY);
 };
 
 const handleMove = (event) => {
@@ -54,7 +55,7 @@ const handleMove = (event) => {
   const distance = Math.hypot(dx, dy);
 
   if (distance < 140) {
-    const step = 170;
+    const step = 140;
     const nx = distance === 0 ? Math.random() - 0.5 : dx / distance;
     const ny = distance === 0 ? Math.random() - 0.5 : dy / distance;
     const nextX = centerX + nx * step - btnRect.width / 2;
@@ -65,8 +66,8 @@ const handleMove = (event) => {
     const newCenterX = updatedRect.left + updatedRect.width / 2;
     const newCenterY = updatedRect.top + updatedRect.height / 2;
     const newDistance = Math.hypot(newCenterX - event.clientX, newCenterY - event.clientY);
-    if (newDistance < 120) {
-      moveNoButtonFarFrom(event.clientX, event.clientY);
+    if (newDistance < 110) {
+      moveNoButtonNearCursor(event.clientX, event.clientY);
     }
   }
 };
