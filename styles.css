@@ -57,7 +57,7 @@ body::after {
   backdrop-filter: blur(8px);
   position: relative;
   animation: float 4.5s ease-in-out infinite;
-  transform: translateY(-30px);
+  transform: translateY(-12px);
 }
 
 .hero {
@@ -133,7 +133,7 @@ h1 {
   color: #3b2f35;
   position: fixed;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: transform 0.12s ease;
+  transition: transform 0.12s ease, left 0.08s ease, top 0.08s ease;
   z-index: 2;
 }
 
