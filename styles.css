@@ -95,7 +95,7 @@ h1 {
 
 .buttons {
   position: relative;
-  height: 150px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -131,10 +131,9 @@ h1 {
 .no {
   background: #f6f0f3;
   color: #3b2f35;
-  position: absolute;
+  position: static;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: transform 0.12s ease, left 0.08s ease, top 0.08s ease;
-  z-index: 2;
+  transition: transform 0.12s ease;
 }
 
 .response {
@@ -142,6 +141,44 @@ h1 {
   font-size: 1.1rem;
   min-height: 1.3em;
   font-weight: 600;
+}
+
+.excited-gif {
+  display: none;
+  margin: 20px auto 0;
+  width: min(260px, 70vw);
+  border-radius: 16px;
+  box-shadow: 0 16px 32px rgba(255, 92, 138, 0.25);
+}
+
+.excited-gif.is-visible {
+  display: block;
+}
+
+.confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  opacity: 0.9;
+  transform: translateY(-10vh) rotate(0deg);
+  animation: confetti-fall 2.6s ease-in forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+  }
 }
 
 @keyframes float {
