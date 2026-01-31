@@ -3,15 +3,13 @@ const yesBtn = document.getElementById("yesBtn");
 const response = document.getElementById("response");
 
 const moveNoButton = () => {
-  const buttonsArea = document.querySelector(".buttons");
-  const areaRect = buttonsArea.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
+  const padding = 16;
+  const maxX = window.innerWidth - btnRect.width - padding * 2;
+  const maxY = window.innerHeight - btnRect.height - padding * 2;
 
-  const maxX = areaRect.width - btnRect.width;
-  const maxY = areaRect.height - btnRect.height;
-
-  const x = Math.max(0, Math.min(maxX, Math.random() * maxX));
-  const y = Math.max(0, Math.min(maxY, Math.random() * maxY));
+  const x = Math.max(padding, Math.min(maxX + padding, Math.random() * maxX + padding));
+  const y = Math.max(padding, Math.min(maxY + padding, Math.random() * maxY + padding));
 
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
@@ -29,7 +27,11 @@ const handleMove = (event) => {
 };
 
 noBtn.addEventListener("mouseenter", moveNoButton);
+noBtn.addEventListener("pointerdown", moveNoButton);
 window.addEventListener("mousemove", handleMove);
+window.addEventListener("resize", moveNoButton);
+
+moveNoButton();
 
 yesBtn.addEventListener("click", () => {
   response.textContent = "Yay! Happy Valentine’s Day, friend 💖";

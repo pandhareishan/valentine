@@ -5,8 +5,8 @@
   --text: #222;
   --accent: #ff5c8a;
   --accent-dark: #e44b77;
-}
-
+  position: fixed;
+  right: auto;
 * {
   box-sizing: border-box;
 }
